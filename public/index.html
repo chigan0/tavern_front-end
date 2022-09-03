@@ -4,8 +4,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="icon" href="<%= BASE_URL %>logo.ico">
+    <!--fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+    <link rel="stylesheet" href="<%= BASE_URL %>css/header.css">
+    <link rel="stylesheet" href="<%= BASE_URL %>css/footer.css">
+    <script src="<%= BASE_URL %>js/home.js"></script>
+
+    <!--
+    <title><%= htmlWebpackPlugin.options.title %></title>-->
+    <title>azeroth-tavern</title>
   </head>
   <body>
     <noscript>
@@ -13,5 +27,10 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+
+    <script>
+      if (document.location.pathname === '/')
+        window.onload = function(){setTimeout(homepage, 100)}
+    </script>
   </body>
 </html>
