@@ -132,9 +132,9 @@
 
             else if (status === 409)
               this.erroMeesage(err.response.data.detail.field, "Пользователь с такими данными зарегистрирован")
+            
+            this.$refs.invisibleHcaptcha.reset();
           })
-
-          this.$refs.invisibleHcaptcha.reset();
         }
 
       },

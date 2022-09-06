@@ -26,8 +26,8 @@
                         <div class="order-content-item__image">
 
                            <picture>
-                             <source :srcset="backUrl+'/'+orderData.img_path" type="image/webp">
-                               <img :src="backUrl+'/'+orderData.img_path" alt="content image" >
+                             <source :srcset="backUrl+'/'+orderData.icon_path" type="image/webp">
+                               <img :src="backUrl+'/'+orderData.icon_path" alt="content image" >
                              </picture>
                         </div>
                         <div class="order-content-item__text-block">

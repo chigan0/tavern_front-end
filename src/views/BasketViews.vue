@@ -45,12 +45,12 @@
                            <div class="basket-page-item__content basket-page-item-content">
                               <div class="basket-page-item-content__image">
                                  <picture>
-                                   <source :srcset="backUrl+'/'+product.img_path" type="image/webp">
-                                     <img :src="backUrl+'/'+product.img_path" alt="item image">
+                                   <source :srcset="backUrl+'/'+product.icon_path" type="image/webp">
+                                     <img :src="backUrl+'/'+product.icon_path" alt="item image">
                                   </picture>
                               </div>
                               <div class="basket-page-item-content__text-block">
-                                 <h5 class="basket-page-item-content__subtitle">World of Warcraft Classic</h5>
+                                 <h5 class="basket-page-item-content__subtitle">{{(categoryList[product.category_id] !== undefined) ? categoryList[product.category_id].title : 'World Of Warcraft'}}</h5>
                                  <h4 class="basket-page-item-content__title">{{product.title}}</h4>
                                  <p class="basket-page-item-content__subtext">{{product.product_type}}</p>
                                  <div class="basket-page-item__mobile-actions _mobile-1">
@@ -111,6 +111,7 @@
       backUrl(){return this.$store.getters.BACK_END_URL;},
       basket(){let basket = this.$store.getters.BASKET_ITEM; return basket},
       authState(){return this.$store.getters.AUTH_STATE},
+      categoryList(){console.log(this.$store.getters.CATEGORY_LIST); return this.$store.getters.CATEGORY_LIST;},
     },
     components:{
       recc: ProductRecc,
@@ -133,7 +134,10 @@
         orderNumber: "",
       }
     },
-    created(){this.getProducts(this.basket.join());},
+    created(){
+       this.getProducts(this.basket.join());
+       this.$store.dispatch('getCategory');
+    },
     methods:{
       allProducts:function(){(!this.allProductsState) ? this.productSelected = this.basket : this.productSelected = [];},
       createOrder: function(){

@@ -70,9 +70,8 @@
 
                 else if(statusCode === 409)
                   this.errorCodeMessage = "Такого кода не существует";
+                this.$refs.invisibleHcaptcha.reset();
               })
-
-              this.$refs.invisibleHcaptcha.reset();
           }
           else{
             this.errorCodeState = true;

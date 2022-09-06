@@ -12,8 +12,8 @@
 
             <div class="basket-page-recommendations__content" v-else>
                <a href="#" class="basket-page-recommendation" v-for="id in shuffle" v-bind:key="id"><router-link :to="'/product/'+id">
-                 <picture><source :srcset="backUrl+'/'+productsList[id].img_path" type="image/webp">
-                   <img :src="backUrl+'/'+productsList[id].img_path" alt="image" class="basket-page-recommendation__image">
+                 <picture><source :srcset="backUrl+'/'+productsList[id].icon_path" type="image/webp">
+                   <img :src="backUrl+'/'+productsList[id].icon_path" alt="image" class="basket-page-recommendation__image">
                  </picture>
                  <h5 class="basket-page-recommendation__subtitle">World of Warcraft Classic</h5>
                  <h4 class="basket-page-recommendation__title">{{productsList[id].title}}</h4>

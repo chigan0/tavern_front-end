@@ -3,7 +3,7 @@
 
     <a href="#" @click="addProductState=true;"><h3 style="margin: 10px 0 10px 10px; text-align: left;">Добавить товар</h3></a>
 
-    <div class="product-new_product" v-if="addProductState">
+    <div class="product-new_product" v-if="addProductState || shangeState">
       <div class="" id="block-sharp_el">
         <CategoryOption @setCategoryId="setCategoryId"/>
       </div>
@@ -41,13 +41,29 @@
         <textarea name="name" rows="6" cols="60" class="input_mode" v-model="description"></textarea>
         <span style='display: block; padding: 10px 0 0 0;'>{{description.length}}/1200</span>
       </div>
+    <!--
+      <div class="" v-if="shangeState" style="padding: 15px 0 15px 0;">
+        <div class="">
+          <input type="radio" :value="true"  v-model="is_active">
+          <label style="padding: 0 15px 0 0;">Активно</label>
 
+          <input type="radio" :value="false" v-model="is_active">
+          <label>Не активно</label>
+        </div>
+      </div>
+-->
       <div class="" id="block-sharp_el">
         <AddFile :only_one="true" :only_img="true" @getFiles="addFile"/>
       </div>
 
-      <a href="#" id="block-sharp_el" @click="createProduct" style="display: block">Добавить</a>
-      <a href="#" id="block-sharp_el" @click="resetState">Закрыть</a>
+      <div class="" v-if="preloaderState">
+        <PreloaderComp/>
+      </div>
+
+      <div v-else>
+        <a href="#" id="block-sharp_el" @click="createProduct" style="display: block">Добавить</a>
+        <a href="#" id="block-sharp_el" @click="resetState">Закрыть</a>
+      </div>
     </div>
 
     <div class="product-all" v-else>
@@ -57,7 +73,7 @@
           <span id="block-sharp">{{product.title}}</span>
           <span>Цена в RUB: <span style="padding: 0 5px 0 5px;">{{product.price_in_rub}}</span></span>
           <a href="#" id="block-sharp" @click="getMarginData('product', id)"><span>Подробней</span></a>
-          <!--<a href="#" id="block-sharp"><span>Редактировать</span></a>-->
+          <a href="#" id="block-sharp" @click="productData(id)"><span>Редактировать</span></a>
           <a href="#" id="block-sharp" @click="deleteProduct(id)"><span style='color: #f06966;'>Удалить</span></a>
 
           <div class="product-list-all_more" v-if="moreId === id" style="padding: 15px 0 15px 0; margin-left: 10px;">
@@ -80,12 +96,14 @@
 <script>
   import CategoryOption from '@/components/usefully/CategoryOption.vue';
   import AddFile from '@/components/usefully/AddFile.vue';
+  import PreloaderComp from '@/components/usefully/PreloaderComp.vue';
 
   export default{
     name: 'ProductPanel',
     components:{
       CategoryOption,
-      AddFile
+      AddFile,
+      PreloaderComp
     },
     computed:{
       backUrl(){return this.$store.getters.BACK_END_URL;},
@@ -95,6 +113,10 @@
     data(){
       return{
         addProductState: false,
+        shangeState: false,
+        preloaderState: false,
+        //is_active: true,
+        shangeId: 0,
         moreId: 0,
         categoryId: 0,
         title: "",
@@ -133,13 +155,34 @@
           this.$router.push('/catalog');
         })
       },
+
+      productData(id){
+        this.axios.get("/product/data?entry_id="+id)
+        .then((res)=>{
+           this.title = res.data.title;
+           this.shangeId = id;
+
+           this.categoryId = res.data.category_id;
+           this.shangeState = true;
+           this.price_in_kzt = res.data.price_in_kzt;
+           this.price_in_rub = res.data.price_in_rub;
+           this.margin = res.data.margin;
+           this.productType  = res.data.product_type;
+           this.description = (res.data.description !== null) ? res.data.description : "";
+           //this.is_active = res.data.is_active
+        })
+      },
+
       createProduct: function(){
         if(this.checkData()){
           let formData = new FormData();
+          let req = (this.addProductState) ? this.axios.post : this.axios.put;
+
           formData.append('category_id', this.categoryId);
           formData.append('title', this.title);
           formData.append('product_type', this.productType);
           formData.append('description', this.description);
+          //formData.append('is_active', this.is_active);
           formData.append('file', this.file);
 
           if (this.price_in_kzt !== null)
@@ -151,14 +194,20 @@
           if (this.margin)
             formData.append('margin', this.margin);
 
-          this.axios.post('/product', formData, {headers: {'Content-Type': 'multipart/form-data'}})
-          .then(()=>{
-            this.getProductList();
-            this.resetState();
-          })
-          .catch((err)=>{
-            console.log(err)
-          })
+          this.preloaderState = true;
+          req((this.shangeId>0) ? '/product?entry_id='+this.shangeId : '/product', formData, {headers: {'Content-Type': 'multipart/form-data'}})
+            .then(()=>{
+              this.getProductList();
+              this.resetState();
+            })
+            .catch((err)=>{
+              console.log(err)
+            })
+
+            .finally(()=>{
+              this.preloaderState = false;
+            })
+
         }
       },
       deleteProduct: function(id){
@@ -181,6 +230,8 @@
       },
       resetState: function(){
         this.addProductState = false;
+        this.shangeState = false;
+        this.shangeId = 0;
         this.moreId = false;
         this.categoryId = 0;
         this.moreId = 0;

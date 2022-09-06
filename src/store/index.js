@@ -14,9 +14,9 @@ export default createStore({
     categoryList: {},
     serviceList: {},
     userData: {},
-    backEndUrl: "http://127.0.0.1:8000",
+    backEndUrl: "https://api.azeroth-tavern.com",//"http://127.0.0.1:8000",//"https://api.azeroth-tavern.com",
     discordUrl: "https://discord.gg/PX94sGTAcu",
-    vkAuthLink: "https://oauth.vk.com/authorize?client_id=51392990&display=page&redirect_uri=http://127.0.0.1:8000/v1/signin/vk&scope=email&response_type=code&v=5.131",
+    vkAuthLink: "https://oauth.vk.com/authorize?client_id=51392990&display=page&redirect_uri=https://api.azeroth-tavern.com/v1/signin/vk&scope=email&response_type=code&v=5.131",
 
   },
   getters: {

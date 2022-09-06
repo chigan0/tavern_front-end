@@ -112,9 +112,8 @@
               this.emailErrorMessage = "Пользователь с такой почтой не найден";
 
             this.restoreState(true);
+            this.$refs.invisibleHcaptcha.reset();
           })
-
-          this.$refs.invisibleHcaptcha.reset();
         }
         else{
           this.passErrorMessage = validData.error.password;

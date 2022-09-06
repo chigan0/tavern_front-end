@@ -196,7 +196,7 @@
 
                         <p class="fourth-tab-content-second-block__unregistered-user-attention ">
                            Добавить предложения может только авторизированный пользователь<br>
-                           <a href="#">Данные раздел всё ещё находиться в разработке</a>
+                           <a href="#">Данный раздел всё ещё находиться в разработке</a>
                         </p>
                      </form>
                      <div class="fourth-tab-content-second-block__image">

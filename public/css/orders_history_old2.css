@@ -694,7 +694,6 @@ body {
 }
 
 .order-content-item {
-  margin-bottom: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -702,16 +701,16 @@ body {
       align-content: stretch;
 }
 
+.order-content-item:not(:last-child) {
+  margin-bottom: 20px;
+}
+
 .order-content-item__image {
   margin-right: 20px;
 }
 
 .order-content-item__image img {
-  border-radius: 6px;
   width: 158px;
-  -o-object-fit: cover;
-     object-fit: cover;
-  height: 100%;
 }
 
 .order-content-item__text-block {

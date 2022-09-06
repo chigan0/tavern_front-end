@@ -19,10 +19,10 @@
                     <label v-else class="header-actions-user__arrow" for="header-user-dropp-menu-checkbox">{{userData.username}}</label>
                   </div>
 
-                  <ul class="header-actions-user__dropp-menu header-actions-user-dropp-menu">
+                  <ul class="header-actions-user__dropp-menu header-actions-user-dropp-menu" @click="closeBurgerMenu">
                     <div class="" v-if="authState">
-                     <li v-if="adminPanel"><router-link to="/admin" @click="menuListState = false;" class="header-actions-user-dropp-menu__item">Админ. панель</router-link></li>
-                     <li v-if="authState"><router-link to="/orders" @click="menuListState = false;" class="header-actions-user-dropp-menu__item">Заказы</router-link></li>
+                     <li v-if="adminPanel"><router-link to="/admin" class="header-actions-user-dropp-menu__item">Админ. панель</router-link></li>
+                     <li v-if="authState"><router-link to="/orders" class="header-actions-user-dropp-menu__item">Заказы</router-link></li>
                    </div>
 
                     <div class="">
@@ -38,14 +38,14 @@
                </div>
             </div>
             <nav class="header__menu ">
-               <ul class="header__list">
+               <ul class="header__list" @click="closeBurgerMenu">
                   <li><a href="/#about" class="header__link">О нас</a></li>
                   <li><a href="/#advantages" class="header__link">Преимущества</a></li>
                   <li><a href="/#how-we-work" class="header__link">Как мы работаем</a></li>
                   <li><a href="/#reviews" class="header__link">Отзывы</a></li>
-                  <li @click="closeBurgerMenu" v-if="adminPanel"><router-link to="/admin" class="header__link _mobile">Админ. панель</router-link></li>
-                  <li @click="closeBurgerMenu"><router-link to="/catalog" class="header__link _mobile">Каталог</router-link></li>
-                  <li @click="closeBurgerMenu" v-if="authState"><router-link to="/orders" class="header__link">Заказы</router-link></li>
+                  <li v-if="adminPanel"><router-link to="/admin" class="header__link _mobile">Админ. панель</router-link></li>
+                  <li><router-link to="/catalog" class="header__link _mobile">Каталог</router-link></li>
+                  <li v-if="authState"><router-link to="/orders" class="header__link">Заказы</router-link></li>
                   <li @click="logOut" v-if="authState" ><router-link to="/catalog" class="header__link _mobile">Выйти</router-link></li>
 
                </ul>
