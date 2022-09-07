@@ -111,7 +111,7 @@
       backUrl(){return this.$store.getters.BACK_END_URL;},
       basket(){let basket = this.$store.getters.BASKET_ITEM; return basket},
       authState(){return this.$store.getters.AUTH_STATE},
-      categoryList(){console.log(this.$store.getters.CATEGORY_LIST); return this.$store.getters.CATEGORY_LIST;},
+      categoryList(){return this.$store.getters.CATEGORY_LIST;},
     },
     components:{
       recc: ProductRecc,

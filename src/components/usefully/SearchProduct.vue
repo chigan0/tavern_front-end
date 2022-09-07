@@ -24,8 +24,8 @@
              <router-link :to="'/product/'+id"><a href="#" @click="clearSeatch" class="search-form-dropped-menu__item search-form-dropped-menu-item">
                <picture><source :srcset="backUrl+'/'+prod.img_path" type="image/webp">
                  <picture>
-                   <source :srcset="backUrl+'/'+prod.img_path" type="image/webp">
-                     <img :src="backUrl+'/'+prod.img_path" alt="image" class="search-form-dropped-menu-item__image">
+                   <source :srcset="backUrl+'/'+prod.icon_path" type="image/webp"><!--img_path-->
+                     <img :src="backUrl+'/'+prod.icon_path" alt="image" class="search-form-dropped-menu-item__image">
                    </picture>
                  </picture>
                  <div class="search-form-dropped-menu-item__text">

@@ -50,17 +50,11 @@ export default{
   },
   methods:{
     change: function(payload){
-      console.log(payload)
       this.component_selected = payload.comp
-
-      console.log(payload.confirm)
 
       if (payload.confirm){
         this.sendUrl = payload.confirm.sendUrl;
         this.methods = payload.confirm.methods;
-
-        console.log(this.sendUrl)
-        console.log(this.methods)
       }
 
     }
